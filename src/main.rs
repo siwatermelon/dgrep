@@ -1,0 +1,14 @@
+use std::{env, process};
+use dgrep::Config;
+fn main() {
+    let config = Config::build(env::args()).unwrap_or_else(|error|{
+        eprintln!("Problem parsing arguments: {error}");
+        process::exit(1)
+    });
+
+    if let Err(e) = dgrep::run(config) {
+        eprintln!("Application error: {e}");
+        process::exit(1);
+    }
+
+}
